@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Weather Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #312e81 100%);
+            min-height: 100vh;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .city-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .city-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .city-btn.active {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-white mb-2">Kerala Weather Dashboard</h1>
+            <p class="text-blue-200 text-lg">Live weather monitoring for cities across Kerala</p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-white mb-4">Select a City in Kerala</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Thiruvananthapuram">Thiruvananthapuram</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kochi">Kochi</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kozhikode">Kozhikode</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Thrissur">Thrissur</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kollam">Kollam</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Palakkad">Palakkad</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Alappuzha">Alappuzha</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kannur">Kannur</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kottayam">Kottayam</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Malappuram">Malappuram</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Wayanad">Wayanad</button>
+                <button class="city-btn glass rounded-xl px-4 py-3 text-white font-semibold hover:bg-blue-500/20" data-city="Kasaragod">Kasaragod</button>
+            </div>
+            
+            <div class="mt-6 flex items-center gap-4">
+                <input 
+                    type="text" 
+                    id="customCity" 
+                    placeholder="Or enter any city name..."
+                    class="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <button 
+                    id="searchBtn"
+                    class="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-all duration-300"
+                >
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <div id="loading" class="hidden glass rounded-3xl p-8 mb-8 text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent mb-4"></div>
+            <p class="text-white text-lg">Loading weather data...</p>
+        </div>
+
+        <div id="error" class="hidden glass rounded-3xl p-8 mb-8 bg-red-500/20 border-red-400/50">
+            <p class="text-red-200 text-lg font-semibold"></p>
+        </div>
+
+        <div id="weatherData" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <div class="lg:col-span-2 glass rounded-3xl p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">Current Conditions</h2>
+                    <div id="cityName" class="text-xl text-blue-200 mb-4"></div>
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <div id="temperature" class="text-7xl font-bold text-white mb-2">--°</div>
+                            <div id="description" class="text-2xl text-blue-200 mb-1 capitalize">--</div>
+                            <div id="feelsLike" class="text-blue-300">Feels like --°</div>
+                        </div>
+                        <img id="weatherIcon" src="/placeholder.svg" alt="Weather" class="w-32 h-32">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-blue-300 text-sm mb-1">Humidity</div>
+                            <div id="humidity" class="text-2xl font-bold text-white">--%</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-blue-300 text-sm mb-1">Wind Speed</div>
+                            <div id="windSpeed" class="text-2xl font-bold text-white">-- km/h</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-blue-300 text-sm mb-1">Pressure</div>
+                            <div id="pressure" class="text-2xl font-bold text-white">-- hPa</div>
+                        </div>
+                        <div class="bg-white/5 rounded-xl p-4">
+                            <div class="text-blue-300 text-sm mb-1">Visibility</div>
+                            <div id="visibility" class="text-2xl font-bold text-white">-- km</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-3xl p-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">Sun & Moon</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-3xl">🌅</span>
+                                <div>
+                                    <div class="text-blue-300 text-sm">Sunrise</div>
+                                    <div id="sunrise" class="text-xl font-bold text-white">--:--</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-3xl">🌇</span>
+                                <div>
+                                    <div class="text-blue-300 text-sm">Sunset</div>
+                                    <div id="sunset" class="text-xl font-bold text-white">--:--</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-3xl">🌡️</span>
+                                <div>
+                                    <div class="text-blue-300 text-sm">Min / Max</div>
+                                    <div id="tempRange" class="text-xl font-bold text-white">--° / --°</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass rounded-3xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">Hourly Forecast</h2>
+                <div id="hourlyForecast" class="grid grid-cols-4 md:grid-cols-8 gap-4">
+                </div>
+            </div>
+
+            <div class="glass rounded-3xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-6">5-Day Forecast</h2>
+                <div id="dailyForecast" class="space-y-3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '96c2c618308d0b18559f1d9d5660a346';
+        
+        document.querySelectorAll('.city-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const city = this.dataset.city;
+                fetchWeather(city);
+            });
+        });
+        
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            const city = document.getElementById('customCity').value.trim();
+            if (city) {
+                fetchWeather(city);
+            }
+        });
+        
+        document.getElementById('customCity').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const city = document.getElementById('customCity').value.trim();
+                if (city) {
+                    fetchWeather(city);
+                }
+            }
+        });
+        
+        async function fetchWeather(city) {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const weatherData = document.getElementById('weatherData');
+            
+            loading.classList.remove('hidden');
+            error.classList.add('hidden');
+            weatherData.classList.add('hidden');
+            
+            try {
+                const currentResponse = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${city},IN&appid=${API_KEY}&units=metric`
+                );
+                
+                if (!currentResponse.ok) {
+                    throw new Error('City not found or API error');
+                }
+                
+                const currentData = await currentResponse.json();
+                
+                const forecastResponse = await fetch(
+                    `https://api.openweathermap.org/data/2.5/forecast?q=${city},IN&appid=${API_KEY}&units=metric`
+                );
+                
+                const forecastData = await forecastResponse.json();
+                
+                displayWeather(currentData, forecastData);
+                
+            } catch (err) {
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+                error.querySelector('p').textContent = `Error: ${err.message}. Please check the city name and try again.`;
+            }
+        }
+        
+        function displayWeather(current, forecast) {
+            const loading = document.getElementById('loading');
+            const weatherData = document.getElementById('weatherData');
+            
+            loading.classList.add('hidden');
+            weatherData.classList.remove('hidden');
+            
+            document.getElementById('cityName').textContent = `${current.name}, ${current.sys.country}`;
+            document.getElementById('temperature').textContent = `${Math.round(current.main.temp)}°C`;
+            document.getElementById('description').textContent = current.weather[0].description;
+            document.getElementById('feelsLike').textContent = `Feels like ${Math.round(current.main.feels_like)}°C`;
+            document.getElementById('weatherIcon').src = `https://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`;
+            
+            document.getElementById('humidity').textContent = `${current.main.humidity}%`;
+            document.getElementById('windSpeed').textContent = `${Math.round(current.wind.speed * 3.6)} km/h`;
+            document.getElementById('pressure').textContent = `${current.main.pressure} hPa`;
+            document.getElementById('visibility').textContent = `${(current.visibility / 1000).toFixed(1)} km`;
+            
+            document.getElementById('sunrise').textContent = new Date(current.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('sunset').textContent = new Date(current.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('tempRange').textContent = `${Math.round(current.main.temp_min)}° / ${Math.round(current.main.temp_max)}°`;
+            
+            const hourlyHTML = forecast.list.slice(0, 8).map(item => {
+                const time = new Date(item.dt * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                return `
+                    <div class="bg-white/5 rounded-xl p-4 text-center">
+                        <div class="text-blue-300 text-sm mb-2">${time}</div>
+                        <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].description}" class="w-12 h-12 mx-auto">
+                        <div class="text-xl font-bold text-white">${Math.round(item.main.temp)}°</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('hourlyForecast').innerHTML = hourlyHTML;
+            
+            const dailyMap = {};
+            forecast.list.forEach(item => {
+                const date = new Date(item.dt * 1000).toDateString();
+                if (!dailyMap[date]) {
+                    dailyMap[date] = {
+                        temps: [],
+                        icon: item.weather[0].icon,
+                        description: item.weather[0].description,
+                        date: new Date(item.dt * 1000)
+                    };
+                }
+                dailyMap[date].temps.push(item.main.temp);
+            });
+            
+            const dailyHTML = Object.values(dailyMap).slice(0, 5).map(day => {
+                const dayName = day.date.toLocaleDateString('en-US', { weekday: 'long' });
+                const high = Math.round(Math.max(...day.temps));
+                const low = Math.round(Math.min(...day.temps));
+                return `
+                    <div class="bg-white/5 rounded-xl p-5 flex items-center justify-between">
+                        <div class="flex items-center gap-4 flex-1">
+                            <div class="text-white font-bold w-32">${dayName}</div>
+                            <img src="https://openweathermap.org/img/wn/${day.icon}@2x.png" alt="${day.description}" class="w-12 h-12">
+                            <div class="text-blue-200 flex-1 capitalize">${day.description}</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-blue-300">${low}°</span>
+                            <span class="text-2xl font-bold text-white">${high}°</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('dailyForecast').innerHTML = dailyHTML;
+        }
+        
+        window.addEventListener('load', () => {
+            document.querySelector('[data-city="Thiruvananthapuram"]').click();
+        });
+    </script>
+</body>
+</html>
