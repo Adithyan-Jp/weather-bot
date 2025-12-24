@@ -37,26 +37,132 @@
     </style>
 </head>
 <body class="p-6">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
             <h1 class="text-4xl font-semibold text-white">Kerala Weather</h1>
+            <p class="text-gray-400 text-sm mt-2">Live weather monitoring across all Kerala cities</p>
         </div>
 
         <div class="glass rounded-2xl p-6 mb-8">
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mb-4">
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Thiruvananthapuram">Trivandrum</button>
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Kochi">Kochi</button>
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Kozhikode">Kozhikode</button>
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Thrissur">Thrissur</button>
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Kollam">Kollam</button>
-                <button class="city-btn glass rounded-lg px-4 py-2 text-white text-sm font-medium hover:bg-white/10" data-city="Palakkad">Palakkad</button>
+            <h3 class="text-white text-sm font-medium mb-4">Quick Select Cities</h3>
+            
+            <!-- Major Cities -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 mb-6">
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Thiruvananthapuram">Trivandrum</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kochi">Kochi</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kozhikode">Kozhikode</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Thrissur">Thrissur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kollam">Kollam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Palakkad">Palakkad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Alappuzha">Alappuzha</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kannur">Kannur</button>
+                
+                <!-- District Headquarters -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kottayam">Kottayam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Malappuram">Malappuram</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Wayanad">Wayanad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kasaragod">Kasaragod</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Idukki">Idukki</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Pathanamthitta">Pathanamthitta</button>
+                
+                <!-- Ernakulam District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ernakulam">Ernakulam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Aluva">Aluva</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Perumbavoor">Perumbavoor</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Angamaly">Angamaly</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Muvattupuzha">Muvattupuzha</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kothamangalam">Kothamangalam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="North Paravur">N. Paravur</button>
+                
+                <!-- Kozhikode District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Vadakara">Vadakara</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Koyilandy">Koyilandy</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Feroke">Feroke</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ramanattukara">Ramanattukara</button>
+                
+                <!-- Kannur District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Thalassery">Thalassery</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Payyanur">Payyanur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Mattannur">Mattannur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Taliparamba">Taliparamba</button>
+                
+                <!-- Malappuram District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Manjeri">Manjeri</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Perinthalmanna">Perinthalmanna</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Tirur">Tirur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ponnani">Ponnani</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Nilambur">Nilambur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Tanur">Tanur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kottakkal">Kottakkal</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Valanchery">Valanchery</button>
+                
+                <!-- Thiruvananthapuram District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Attingal">Attingal</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Varkala">Varkala</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Nedumangad">Nedumangad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Neyyattinkara">Neyyattinkara</button>
+                
+                <!-- Kollam District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Karunagappally">Karunagappally</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Punalur">Punalur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Paravur">Paravur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kottarakkara">Kottarakkara</button>
+                
+                <!-- Alappuzha District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kayamkulam">Kayamkulam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Cherthala">Cherthala</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Haripad">Haripad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Mavelikkara">Mavelikkara</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Chengannur">Chengannur</button>
+                
+                <!-- Kottayam District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Changanassery">Changanassery</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Pala">Pala</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ettumanoor">Ettumanoor</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Vaikom">Vaikom</button>
+                
+                <!-- Thrissur District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Irinjalakuda">Irinjalakuda</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Chalakudy">Chalakudy</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kodungallur">Kodungallur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Guruvayur">Guruvayur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kunnamkulam">Kunnamkulam</button>
+                
+                <!-- Palakkad District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ottapalam">Ottapalam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Shornur">Shornur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Chittur">Chittur</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Mannarkkad">Mannarkkad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Alathur">Alathur</button>
+                
+                <!-- Pathanamthitta District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Adoor">Adoor</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Tiruvalla">Tiruvalla</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Pandalam">Pandalam</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Ranni">Ranni</button>
+                
+                <!-- Idukki District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Thodupuzha">Thodupuzha</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Munnar">Munnar</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Adimali">Adimali</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kattappana">Kattappana</button>
+                
+                <!-- Wayanad District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kalpetta">Kalpetta</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Sulthan Bathery">S. Bathery</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Mananthavady">Mananthavady</button>
+                
+                <!-- Kasaragod District -->
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Kanhangad">Kanhangad</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Nileshwar">Nileshwar</button>
+                <button class="city-btn glass rounded-lg px-3 py-2 text-white text-xs font-medium hover:bg-white/10" data-city="Bekal">Bekal</button>
             </div>
             
             <div class="flex items-center gap-3">
                 <input 
                     type="text" 
                     id="customCity" 
-                    placeholder="Search city..."
+                    placeholder="Search any city in Kerala..."
                     class="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/10 text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                 />
                 <button 
@@ -257,3 +363,4 @@
     </script>
 </body>
 </html>
+
