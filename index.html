@@ -311,6 +311,120 @@
     <script>
         const API_KEY = '96c2c618308d0b18559f1d9d5660a346';
         
+        const villageMapping = {
+            'cheriyanad': 'Alappuzha',
+            'chenganur': 'Pathanamthitta',
+            'adoor': 'Pathanamthitta',
+            'tiruvalla': 'Pathanamthitta',
+            'ranni': 'Pathanamthitta',
+            'konni': 'Pathanamthitta',
+            'pandalam': 'Pathanamthitta',
+            'mallappally': 'Pathanamthitta',
+            'kayamkulam': 'Alappuzha',
+            'haripad': 'Alappuzha',
+            'mavelikara': 'Alappuzha',
+            'chengannur': 'Alappuzha',
+            'mavelikkara': 'Alappuzha',
+            'mararikulam': 'Alappuzha',
+            'muhamma': 'Alappuzha',
+            'kainakari': 'Alappuzha',
+            'vallikunnam': 'Alappuzha',
+            'angamaly': 'Ernakulam',
+            'aluva': 'Ernakulam',
+            'perumbavoor': 'Ernakulam',
+            'kothamangalam': 'Ernakulam',
+            'muvattupuzha': 'Ernakulam',
+            'piravom': 'Ernakulam',
+            'kolenchery': 'Ernakulam',
+            'thodupuzha': 'Idukki',
+            'kattappana': 'Idukki',
+            'kumily': 'Idukki',
+            'nedumkandam': 'Idukki',
+            'vagamon': 'Idukki',
+            'changanassery': 'Kottayam',
+            'pala': 'Kottayam',
+            'ettumanoor': 'Kottayam',
+            'vaikom': 'Kottayam',
+            'kuravilangad': 'Kottayam',
+            'erattupetta': 'Kottayam',
+            'ponkunnam': 'Kottayam',
+            'vazhoor': 'Kottayam',
+            'punalur': 'Kollam',
+            'karunagappally': 'Kollam',
+            'kottarakkara': 'Kollam',
+            'chavara': 'Kollam',
+            'paravur': 'Kollam',
+            'anchal': 'Kollam',
+            'kundara': 'Kollam',
+            'kottiyam': 'Kollam',
+            'kadakkal': 'Kollam',
+            'koyilandy': 'Kozhikode',
+            'vadakara': 'Kozhikode',
+            'quilandy': 'Kozhikode',
+            'balussery': 'Kozhikode',
+            'thamarassery': 'Kozhikode',
+            'feroke': 'Kozhikode',
+            'perambra': 'Kozhikode',
+            'kunnamangalam': 'Kozhikode',
+            'manjeri': 'Malappuram',
+            'tirur': 'Malappuram',
+            'ponnani': 'Malappuram',
+            'perinthalmanna': 'Malappuram',
+            'kottakkal': 'Malappuram',
+            'edappal': 'Malappuram',
+            'nilambur': 'Malappuram',
+            'kondotty': 'Malappuram',
+            'valanchery': 'Malappuram',
+            'wandoor': 'Malappuram',
+            'shoranur': 'Palakkad',
+            'ottapalam': 'Palakkad',
+            'mannarkkad': 'Palakkad',
+            'cherpulassery': 'Palakkad',
+            'pattambi': 'Palakkad',
+            'alathur': 'Palakkad',
+            'chittur': 'Palakkad',
+            'nenmara': 'Palakkad',
+            'attingal': 'Thiruvananthapuram',
+            'nedumangad': 'Thiruvananthapuram',
+            'varkala': 'Thiruvananthapuram',
+            'neyyattinkara': 'Thiruvananthapuram',
+            'kazhakkoottam': 'Thiruvananthapuram',
+            'pothencode': 'Thiruvananthapuram',
+            'kovalam': 'Thiruvananthapuram',
+            'balaramapuram': 'Thiruvananthapuram',
+            'parassala': 'Thiruvananthapuram',
+            'irinjalakuda': 'Thrissur',
+            'chalakudy': 'Thrissur',
+            'kodungallur': 'Thrissur',
+            'guruvayur': 'Thrissur',
+            'kunnamkulam': 'Thrissur',
+            'wadakkanchery': 'Thrissur',
+            'chavakkad': 'Thrissur',
+            'mala': 'Thrissur',
+            'thalassery': 'Kannur',
+            'payyanur': 'Kannur',
+            'mattannur': 'Kannur',
+            'iritty': 'Kannur',
+            'payyannur': 'Kannur',
+            'taliparamba': 'Kannur',
+            'koothuparamba': 'Kannur',
+            'panoor': 'Kannur',
+            'kalpetta': 'Wayanad',
+            'mananthavady': 'Wayanad',
+            'sulthan bathery': 'Wayanad',
+            'sultan battery': 'Wayanad',
+            'vythiri': 'Wayanad',
+            'meenangadi': 'Wayanad',
+            'kalpatta': 'Wayanad',
+            'manjeshwar': 'Kasaragod',
+            'nileshwar': 'Kasaragod',
+            'kanhangad': 'Kasaragod',
+            'bekal': 'Kasaragod',
+            'kasargod': 'Kasaragod',
+            'uppala': 'Kasaragod',
+            'cheruvathur': 'Kasaragod'
+        };
+
         document.querySelectorAll('.city-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('active'));
@@ -345,40 +459,49 @@
             error.classList.add('hidden');
             weatherData.classList.add('hidden');
             
+            const searchCity = city.toLowerCase().trim();
+            const mappedCity = villageMapping[searchCity] || city;
+            const isVillageMapped = villageMapping[searchCity] !== undefined;
+            
             try {
                 const currentResponse = await fetch(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${city},IN&appid=${API_KEY}&units=metric`
+                    `https://api.openweathermap.org/data/2.5/weather?q=${mappedCity},IN&appid=${API_KEY}&units=metric`
                 );
                 
                 if (!currentResponse.ok) {
-                    throw new Error('City not found');
+                    throw new Error(`"${city}" not found in weather database. Try searching for a nearby larger town or city.`);
                 }
                 
                 const currentData = await currentResponse.json();
                 
                 const forecastResponse = await fetch(
-                    `https://api.openweathermap.org/data/2.5/forecast?q=${city},IN&appid=${API_KEY}&units=metric`
+                    `https://api.openweathermap.org/data/2.5/forecast?q=${mappedCity},IN&appid=${API_KEY}&units=metric`
                 );
                 
                 const forecastData = await forecastResponse.json();
                 
-                displayWeather(currentData, forecastData);
+                displayWeather(currentData, forecastData, isVillageMapped ? city : null);
                 
             } catch (err) {
                 loading.classList.add('hidden');
                 error.classList.remove('hidden');
-                error.querySelector('p').textContent = `Error: ${err.message}`;
+                error.querySelector('p').textContent = err.message;
             }
         }
         
-        function displayWeather(current, forecast) {
+        function displayWeather(current, forecast, originalVillage = null) {
             const loading = document.getElementById('loading');
             const weatherData = document.getElementById('weatherData');
             
             loading.classList.add('hidden');
             weatherData.classList.remove('hidden');
             
-            document.getElementById('cityName').textContent = `${current.name}, ${current.sys.country}`;
+            const locationText = originalVillage 
+                ? `${originalVillage} (nearest: ${current.name}), ${current.sys.country}`
+                : `${current.name}, ${current.sys.country}`;
+            
+            document.getElementById('cityName').textContent = locationText;
+
             document.getElementById('temperature').textContent = `${Math.round(current.main.temp)}°`;
             document.getElementById('description').textContent = current.weather[0].description;
             document.getElementById('feelsLike').textContent = `Feels like ${Math.round(current.main.feels_like)}°`;
@@ -447,5 +570,6 @@
     </script>
 </body>
 </html>
+
 
 
